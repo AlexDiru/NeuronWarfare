@@ -1,29 +1,17 @@
-﻿Build started 29/04/2012 23:13:58.
-     1>Project "C:\Users\Alex\Dropbox\Gauntlet\Gauntlet\Gauntlet.vcxproj" on node 2 (build target(s)).
+﻿Build started 30/04/2012 11:34:44.
+     1>Project "C:\Users\Alex\Dropbox\NeuronWarfare\Gauntlet\Gauntlet.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\Gauntlet.unsuccessfulbuild".
+         Creating "Debug\Gauntlet.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
-         Main.cpp
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\myeventreceiver.h(118): warning C4244: '+=' : conversion from 'const irr::f32' to 'int', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\searchcell.h(27): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\searchcell.h(28): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entitystats.h(57): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entitystats.h(79): warning C4101: 'buffer' : unreferenced local variable
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entity.h(129): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entity.h(129): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entity.h(134): warning C4244: 'argument' : conversion from 'int' to 'irr::f32', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entity.h(134): warning C4244: 'argument' : conversion from 'int' to 'irr::f32', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entitymanager.h(67): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entitymanager.h(68): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\entitymanager.h(79): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\hud.h(24): warning C4482: nonstandard extension used: enum 'irr::gui::EGUI_DEFAULT_COLOR' used in qualified name
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\main.cpp(36): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\main.cpp(71): warning C4244: 'argument' : conversion from 'int' to 'irr::f32', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\main.cpp(71): warning C4244: 'argument' : conversion from 'int' to 'irr::f32', possible loss of data
-     1>c:\users\alex\dropbox\gauntlet\gauntlet\main.cpp(239): error C2182: 'Target of operator new()' : illegal use of type 'void'
-     1>Done Building Project "C:\Users\Alex\Dropbox\Gauntlet\Gauntlet\Gauntlet.vcxproj" (build target(s)) -- FAILED.
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+         Gauntlet.vcxproj -> C:\Users\Alex\Dropbox\NeuronWarfare\Debug\Gauntlet.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\Gauntlet.unsuccessfulbuild".
+         Touching "Debug\Gauntlet.lastbuildstate".
+     1>Done Building Project "C:\Users\Alex\Dropbox\NeuronWarfare\Gauntlet\Gauntlet.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:02.82
+Time Elapsed 00:00:00.08

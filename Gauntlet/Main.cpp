@@ -56,9 +56,9 @@ int main()
 	MG.ConvertLoneToCover();
 
 	//Setup textures
-	ITexture *FloorTexture = driver->getTexture("Floor.png");
-	ITexture *WallTexture = driver->getTexture("Wall.png");
-	ITexture *CoverTexture = driver->getTexture("Cover.png");
+	ITexture *FloorTexture = driver->getTexture("Textures/Floor.png");
+	ITexture *WallTexture = driver->getTexture("Textures/Wall.png");
+	ITexture *CoverTexture = driver->getTexture("Textures/Cover.png");
 
 	//Import maze
 	MazeRenderer MR;
@@ -79,10 +79,10 @@ int main()
 
 	//Textures
 	ITexture* PlayerTexture[4];
-	PlayerTexture[0] = driver->getTexture("Player1.png");
-	PlayerTexture[1] = driver->getTexture("Player2.png");
-	PlayerTexture[2] = driver->getTexture("Player3.png");
-	PlayerTexture[3] = driver->getTexture("Player4.png");
+	PlayerTexture[0] = driver->getTexture("Textures/Player1.png");
+	PlayerTexture[1] = driver->getTexture("Textures/Player2.png");
+	PlayerTexture[2] = driver->getTexture("Textures/Player3.png");
+	PlayerTexture[3] = driver->getTexture("Textures/Player4.png");
 
 	//Names
 	vector<std::string> PlayerName;
@@ -106,11 +106,11 @@ int main()
 		Player[i].X = MG.XStarts[i];
 		Player[i].Y = MG.YStarts[i];
 		Player[i].Stats.MovementSteps = 5+i;
-		Player[i].ReachableTile = driver->getTexture("TurnReachable.png");
-		Player[i].UnreachableTile = driver->getTexture("TurnUnreachable.png");
+		Player[i].ReachableTile = driver->getTexture("Textures/TurnReachable.png");
+		Player[i].UnreachableTile = driver->getTexture("Textures/TurnUnreachable.png");
 		Player[i].Stats.RealFiringDistance = 100;
-		Player[i].CellShootable = driver->getTexture("CellShootable.png");
-		Player[i].CellShootableCover = driver->getTexture("CellShootableCover.png");
+		Player[i].CellShootable = driver->getTexture("Textures/CellShootable.png");
+		Player[i].CellShootableCover = driver->getTexture("Textures/CellShootableCover.png");
 		Player[i].Position();
 		path filename = "Avatars/";
 		filename.append(PlayerName[i].c_str());
@@ -138,7 +138,7 @@ int main()
 
 	for (int i = 0; i < numEnemies; i++)
 	{
-		Enemy[i].Construct(smgr,MG.Convert(), driver->getTexture("Enemy.png"));
+		Enemy[i].Construct(smgr,MG.Convert(), driver->getTexture("Textures/Enemy.png"));
 		Enemy[i].Stats.Name = PlayerName[i];
 		Enemy[i].Stats.MaxHealth = 100;
 		Enemy[i].Stats.RestoreAll();
@@ -233,17 +233,6 @@ int main()
 
 		smgr->drawAll();
 		guienv->drawAll();
-
-		
-		//Grayscale test
-		void *data = new void[];
-		IImage *Scene = driver->createImageFromData(irr::video::ECF_A16B16G16R16F,dimension2d<u32>(SCREENX,SCREENY),data);
-		for (int y = 0; y < SCREENY; y++)
-			for (int x = 0; x < SCREENX; x++)
-				if (Scene->getPixel(x,y).getGreen() > 100)
-					Scene->setPixel(x,y,SColor(255,0,0,0));
-		driver->writeImageToFile(Scene,"test.png");
-
 		HUD.Draw(guienv,*PlayerManager.GetCurrentEntity());
 		HUD.DrawAIDebug(guienv,*EnemyManager.GetEntity(0),PlayerManager);
 		driver->endScene();
