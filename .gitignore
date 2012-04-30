@@ -1,3 +1,8 @@
+#Media
+*.png
+*.jpg
+*.bmp
+
 #OS junk files
 [Tt]humbs.db
 *.DS_Store
