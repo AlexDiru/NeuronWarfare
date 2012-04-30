@@ -1,0 +1,14 @@
+This folder contains functions and classes for an A* pathfinding algorithm
+
+The pathfinding is used in the game, to calculate (in most cases) the quickest path.
+
+The code is a modified version from the source code provided for the A* algorithm tutorial: 
+
+http://www.youtube.com/watch?v=NJOf_MYGrYs
+
+Classes:
+
+Vector3 - s/e
+SearchCell - represents one cell of the map grid
+PathFinding - contains all the algorithms to create a path
+			  i.e. [map, start, goal] ==> [PathFinding] ==> [path]
