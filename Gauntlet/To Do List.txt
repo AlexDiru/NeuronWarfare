@@ -2,7 +2,6 @@ High Priority
 
 2012.04.27 Only 'see' player if line of sight/in fog of war (already implemented)
 2012.04.27 Characters only allowed one shot per turn
-
 Medimum Priority
 
 2012.04.27 Upgrade maps for more versatility, maybe unprocedural option

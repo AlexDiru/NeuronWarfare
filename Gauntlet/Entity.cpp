@@ -660,3 +660,66 @@ void Entity::UpdatePathDisplayTimer()
 	if (NewPathDisplayTimer > 0) 
 		NewPathDisplayTimer--; 
 }
+
+
+void Entity::CheckIfDead()
+{
+	if (Stats.CurrentHealth <= 0)
+	{
+		IsDead = true;
+		this->ClearUpPath();
+		this->ClearUpShootCubes();
+		Node->setVisible(false);
+	}
+	else if (IsDead) //revived
+	{
+		IsDead = false;
+		Node->setVisible(true);
+	}
+}
+
+void Entity::BADisplayAllCellsThatCanBeShot( const std::vector<std::string>& Map, irr::scene::ISceneManager *smgr )
+{
+	//Get 2d coords of target
+	//std::pair<int, int> Coord( target.Z/10, target.X/10 );
+
+	BresenhamLineAlgo BLA(Map);
+	std::vector<std::vector<int>> canShoot;
+
+	int tfs = this->Stats.RealFiringDistance/10; //tile firing distance
+		
+	//set shoot array to default (all true)
+	for (int i = 0; i < tfs*2+1; i++)
+	{
+		std::vector<int> row(tfs*2+1,1);
+		canShoot.push_back(row);
+	}
+
+	BLA.CheckAllRange(canShoot,tfs,this->X,this->Y);
+
+	//Display shootcubes
+	for (int y = this->Y-tfs; y <= this->Y+tfs; y++)
+		for (int x = this->X-tfs; x <= this->X+tfs; x++)
+		{
+			//boundary check
+			if (y+tfs < 0 || x+tfs < 0 || x+tfs >= Map[0].size() || x+tfs >= Map.size())
+				continue;
+			if (canShoot[y+tfs-Y][x+tfs-X] != 0)
+			{
+				irr::scene::ISceneNode* cube = smgr->addCubeSceneNode(8);
+				cube->setPosition( irr::core::vector3df(y*10, -3.25, x*10) );
+				cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+				cube->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+
+
+				if (canShoot[y+tfs-Y][x+tfs-X] == 1) //Cover
+					cube->setMaterialTexture(0,this->CellShootableCover);
+				else
+					cube->setMaterialTexture(0,this->CellShootable);
+
+				ShootCubes.push_back(cube);
+			}
+		}
+			
+	ShootCubesBeingDisplayed = true;
+}
