@@ -1,7 +1,6 @@
 // irrGauntlet
 #include "MazeGenerator.h"
 #include "MazeRenderer.h"
-#include "Entity.h"
 #include "EntityManager.h"
 #include "MyEventReceiver.h"
 #include "GameCamera.h"
@@ -29,6 +28,9 @@ using namespace gui;
 #define SCREENX 1366
 #define SCREENY 768
 #define FULLSCREEN false	
+
+//Forward declaration
+class Entity;
 
 int main()
 {
@@ -73,9 +75,9 @@ int main()
 
 	//Create players (4) for testing
 	//Have to use an array as you can't copy boost::threads which pushing into vectors does
-	Entity *Player = new Entity[numPlayers];
+	
 
-	EntityManager PlayerManager(&Player[0],numPlayers);
+	EntityManager PlayerManager(numPlayers);
 
 	//Textures
 	ITexture* PlayerTexture[4];
@@ -99,30 +101,30 @@ int main()
 
 	for (int i = 0; i < numPlayers; i++ )
 	{
-		Player[i].Construct(smgr,MG.Convert(), PlayerTexture[i]);
-		Player[i].Stats.Name = PlayerName[i];
-		Player[i].Stats.MaxHealth = 100;
-		Player[i].Stats.RestoreAll();
-		Player[i].X = MG.XStarts[i];
-		Player[i].Y = MG.YStarts[i];
-		Player[i].Stats.MovementSteps = 5+i;
-		Player[i].ReachableTile = driver->getTexture("Textures/TurnReachable.png");
-		Player[i].UnreachableTile = driver->getTexture("Textures/TurnUnreachable.png");
-		Player[i].Stats.RealFiringDistance = 100;
-		Player[i].CellShootable = driver->getTexture("Textures/CellShootable.png");
-		Player[i].CellShootableCover = driver->getTexture("Textures/CellShootableCover.png");
-		Player[i].Position();
+		PlayerManager.GetEntity(i)->Construct(smgr,MG.Convert(), PlayerTexture[i]);
+		PlayerManager.GetEntity(i)->Stats.Name = PlayerName[i];
+		PlayerManager.GetEntity(i)->Stats.MaxHealth = 100;
+		PlayerManager.GetEntity(i)->Stats.RestoreAll();
+		PlayerManager.GetEntity(i)->X = MG.XStarts[i];
+		PlayerManager.GetEntity(i)->Y = MG.YStarts[i];
+		PlayerManager.GetEntity(i)->Stats.MovementSteps = 5+i;
+		PlayerManager.GetEntity(i)->ReachableTile = driver->getTexture("Textures/TurnReachable.png");
+		PlayerManager.GetEntity(i)->UnreachableTile = driver->getTexture("Textures/TurnUnreachable.png");
+		PlayerManager.GetEntity(i)->Stats.RealFiringDistance = 100;
+		PlayerManager.GetEntity(i)->CellShootable = driver->getTexture("Textures/CellShootable.png");
+		PlayerManager.GetEntity(i)->CellShootableCover = driver->getTexture("Textures/CellShootableCover.png");
+		PlayerManager.GetEntity(i)->Position();
 		path filename = "Avatars/";
 		filename.append(PlayerName[i].c_str());
 		filename.append(".png");
-		Player[i].Avatar = driver->getTexture( filename );
+		PlayerManager.GetEntity(i)->Avatar = driver->getTexture( filename );
 
 		//test stats
-		Player[i].Stats.Accuracy = 100;
-		Player[i].Stats.Attack = 100;
-		Player[i].Stats.AttackVariance = 0;
-		Player[i].Stats.Defense = 0;
-		Player[i].Stats.DefenseVariance = 0;
+		PlayerManager.GetEntity(i)->Stats.Accuracy = 100;
+		PlayerManager.GetEntity(i)->Stats.Attack = 100;
+		PlayerManager.GetEntity(i)->Stats.AttackVariance = 0;
+		PlayerManager.GetEntity(i)->Stats.Defense = 0;
+		PlayerManager.GetEntity(i)->Stats.DefenseVariance = 0;
 	}
 
 
@@ -131,32 +133,31 @@ int main()
 
 	//Setup AI
 	int numEnemies = 1;
-	Entity *Enemy = new Entity[numEnemies];
-	EntityManager EnemyManager(&Enemy[0],numEnemies);
+	EntityManager EnemyManager(numEnemies);
 
 	//Textures (none for now)
 
 	for (int i = 0; i < numEnemies; i++)
 	{
-		Enemy[i].Construct(smgr,MG.Convert(), driver->getTexture("Textures/Enemy.png"));
-		Enemy[i].Stats.Name = PlayerName[i];
-		Enemy[i].Stats.MaxHealth = 100;
-		Enemy[i].Stats.RestoreAll();
-		Enemy[i].Stats.MovementSteps = 5+i;
-		Enemy[i].Stats.RealFiringDistance = 100;
-		Enemy[i].Stats.Attack = 50;
-		Enemy[i].Stats.Accuracy = 100;
+		EnemyManager.GetEntity(i)->Construct(smgr,MG.Convert(), driver->getTexture("Textures/Enemy.png"));
+		EnemyManager.GetEntity(i)->Stats.Name = PlayerName[i];
+		EnemyManager.GetEntity(i)->Stats.MaxHealth = 100;
+		EnemyManager.GetEntity(i)->Stats.RestoreAll();
+		EnemyManager.GetEntity(i)->Stats.MovementSteps = 5+i;
+		EnemyManager.GetEntity(i)->Stats.RealFiringDistance = 100;
+		EnemyManager.GetEntity(i)->Stats.Attack = 50;
+		EnemyManager.GetEntity(i)->Stats.Accuracy = 100;
 
 		//Stats
 
 		//steup random position
-		Enemy[i].AI_SetRandomDestination();
-		Enemy[i].X = Enemy[i].AI_DestinationX;
-		Enemy[i].Y = Enemy[i].AI_DestinationY; //new path will be created
-		Enemy[i].Position();
+		EnemyManager.GetEntity(i)->AI_SetRandomDestination();
+		EnemyManager.GetEntity(i)->X = EnemyManager.GetEntity(i)->AI_DestinationX;
+		EnemyManager.GetEntity(i)->Y = EnemyManager.GetEntity(i)->AI_DestinationY; //new path will be created
+		EnemyManager.GetEntity(i)->Position();
 
-		Enemy[i].AI_State = AI::Patrol;
-		Enemy[i].isAI = true;
+		EnemyManager.GetEntity(i)->AI_State = AI::Patrol;
+		EnemyManager.GetEntity(i)->isAI = true;
 	}
 
 	bool rkf = false;

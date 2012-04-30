@@ -10,4 +10,4 @@
 
 //enemy manager is redundant until there are enemies
 void FireAtTarget(const MyEventReceiver& Receiver, EntityManager& PlayerManager, EntityManager& EnemyManager, 
-					MazeRenderer& MR, irr::scene::ISceneManager *smgr, irr::scene::ISceneNode *Cursor);
+					MazeRenderer& MR, irr::scene::ISceneManager *smgr, irr::scene::ISceneNode *Cursor);	

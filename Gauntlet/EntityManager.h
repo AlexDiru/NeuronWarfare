@@ -10,7 +10,11 @@ class EntityManager
 {
 public:
 	//stores a pointer to the first entity of the array and also the size
-	EntityManager(Entity *e_ptr, int sz) : ePtr(e_ptr), Size(sz), CurrentPlayer(0) {};
+	EntityManager(int sz) 
+		: Size(sz), CurrentPlayer(0) 
+	{
+		ePtr = new Entity[sz];
+	};
 
 	~EntityManager() //clear up memory
 	{
