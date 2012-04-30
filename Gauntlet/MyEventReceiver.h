@@ -115,7 +115,7 @@ public:
                 break;
 
 			case irr::EMIE_MOUSE_WHEEL:
-				MouseState.MouseScroll += event.MouseInput.Wheel*5;
+				MouseState.MouseScroll += (int)event.MouseInput.Wheel*5;
 				break;
 
             default:

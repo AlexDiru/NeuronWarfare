@@ -5,7 +5,6 @@
 #include <irrlicht.h>
 #include "MazeRenderer.h"
 #include "EntityManager.h"
-#include "Entity.h"
 #include "irr_vector_enhancements.h"
 
 //enemy manager is redundant until there are enemies

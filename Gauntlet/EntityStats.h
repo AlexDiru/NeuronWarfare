@@ -76,7 +76,6 @@ public:
 
 	std::string ConvertToString() const
 	{
-		char buffer[30];
 		return (std::string)(Name + 
 							 "\nHealth: " + toString(CurrentHealth) + "/" + toString(MaxHealth) + 
 							 "\nMovement: " + toString(MovementSteps-StepsMovedThisTurn) + "/" + toString(MovementSteps) +

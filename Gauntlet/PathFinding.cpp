@@ -14,12 +14,12 @@ void PathFinding::FindPath(Vector3 currentPos, Vector3 targetPos)
 		}
 		m_openList.clear();
 
-		for(int i = 0; i < m_visitedList.size(); i++)
+		for(unsigned int i = 0; i < m_visitedList.size(); i++)
 		{
 			delete m_visitedList[i];
 		}
 		m_visitedList.clear();
-		for(int i = 0; i < m_pathToGoal.size(); i++)
+		for(unsigned int i = 0; i < m_pathToGoal.size(); i++)
 		{
 			delete m_pathToGoal[i];
 		}
@@ -61,7 +61,7 @@ SearchCell* PathFinding::GetNextCell()
 	int cellIndex = -1;
 	SearchCell* nextCell = NULL;
 
-	for(int i = 0; i < m_openList.size(); i++)
+	for(unsigned int i = 0; i < m_openList.size(); i++)
 	{
 		if(m_openList[i]->GetF() < bestF)
 		{
@@ -70,7 +70,7 @@ SearchCell* PathFinding::GetNextCell()
 		}
 	}
 
-	if(cellIndex >= 0 && cellIndex < m_openList.size())
+	if(cellIndex >= 0 && cellIndex < (int)m_openList.size())
 	{
 		nextCell = m_openList[cellIndex];
 		m_visitedList.push_back(nextCell);
@@ -84,24 +84,24 @@ void PathFinding::PathOpened(int x, int z, float newCost, SearchCell *parent)
 	if (x < 0 || z < 0 || x >= XSize || z >= YSize)
 		return;
 
-	for (int i = 0; i < UnwalkableTiles.length(); i++)
-	if (Map[z][x] == UnwalkableTiles[i])
-		return;
+	for (unsigned int i = 0; i < UnwalkableTiles.length(); i++)
+		if (Map[z][x] == UnwalkableTiles[i])
+			return;
 
 	int id = z * this->XSize + x;
-	for(int i = 0; i < m_visitedList.size(); i++)
+	for(unsigned int i = 0; i < m_visitedList.size(); i++)
 	{
 		if(id == m_visitedList[i]->m_id)
 		{
 			return;
-		}
+		} 
 	}
 
 	SearchCell* newChild = new SearchCell(x, z, parent, this->XSize);
 	newChild->G = newCost;
 	newChild->H = parent->ManHattanDistnce(m_goalCell);
 
-	for(int i = 0; i < m_openList.size(); i++)
+	for(unsigned int i = 0; i < m_openList.size(); i++)
 	{
 		if(id == m_openList[i]->m_id)
 		{
@@ -157,7 +157,7 @@ void PathFinding::ContinuePath()
 		//Down
 		PathOpened(currentCell->m_xcoord, currentCell->m_zcoord - 1, currentCell->G + 1, currentCell);
 
-		for(int i = 0; i < m_openList.size(); i++)
+		for(unsigned int i = 0; i < m_openList.size(); i++)
 		{
 			if(currentCell->m_id == m_openList[i]->m_id)
 			{
@@ -184,7 +184,7 @@ Vector3 PathFinding::NextPathPos()
 
 	//Vector3 distance = nextPos - pos;
 
-	if(index < m_pathToGoal.size())
+	if(index < (int)m_pathToGoal.size())
 	{
 		//if(distance.Length() < radius)
 		{

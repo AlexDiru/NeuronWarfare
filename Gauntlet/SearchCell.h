@@ -22,10 +22,10 @@ public:
 		  H(0) {}
 
 	float GetF() { return G + H; }
-	float ManHattanDistnce(SearchCell *nodeEnd)
+	int ManHattanDistnce(SearchCell *nodeEnd)
 	{
-		float x = (fabsf((this->m_xcoord - nodeEnd->m_xcoord)));
-		float z = (fabsf((this->m_zcoord - nodeEnd->m_zcoord)));
+		int x = (abs((this->m_xcoord - nodeEnd->m_xcoord)));
+		int z = (abs((this->m_zcoord - nodeEnd->m_zcoord)));
 
 		return x + z;
 	}

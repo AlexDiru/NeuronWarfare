@@ -3,8 +3,8 @@
 class Vector3
 {
 public:
-	float x,y,z;
+	int x,y,z;
 
 	Vector3() {}
-	Vector3(float X, float Y, float Z) : x(X), y(Y), z(Z) {}
+	Vector3(int X, int Y, int Z) : x(X), y(Y), z(Z) {}
 };

@@ -2,9 +2,10 @@
 
 #include <irrlicht.h>
 #include "MyEventReceiver.h"
-#include "Entity.h"
 #include "MazeRenderer.h"
 #include "AIFireAtTarget.h"
+
+class Entity;
 
 class EntityManager
 {
