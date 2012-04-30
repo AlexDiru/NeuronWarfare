@@ -234,8 +234,8 @@ int main()
 
 		smgr->drawAll();
 		guienv->drawAll();
-		HUD.Draw(guienv,*PlayerManager.GetCurrentEntity());
-		HUD.DrawAIDebug(guienv,*EnemyManager.GetEntity(0),PlayerManager);
+		HUD.Draw(guienv,PlayerManager.GetCurrentEntity()->Stats,PlayerManager.GetCurrentEntity()->Avatar);
+		//HUD.DrawAIDebug(guienv,*EnemyManager.GetEntity(0),PlayerManager);
 		driver->endScene();
 
 		

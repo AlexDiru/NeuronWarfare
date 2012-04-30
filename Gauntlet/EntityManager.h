@@ -4,6 +4,7 @@
 #include "MyEventReceiver.h"
 #include "MazeRenderer.h"
 #include "AIFireAtTarget.h"
+#include "AIState.h"
 
 class Entity;
 
