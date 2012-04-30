@@ -1,5 +1,6 @@
 #Updating this
 #git rm -r --cached.
+#git add .
 #git commit -m "Updated .gitignore"
 #git push -u origin master
 
@@ -13,6 +14,9 @@
 *.DS_Store
 
 #Visual Studio files
+*.cd
+*.vcxproj
+*.filters
 *.obj
 *.Obj
 *.user
