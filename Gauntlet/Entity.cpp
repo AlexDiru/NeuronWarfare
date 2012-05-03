@@ -378,7 +378,7 @@ void Entity::UpdateMovement(MyEventReceiver& Receiver)
 			KeyFlag = false;
 }
 
-int Entity::CreatePathToDestination(const vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, irr::core::vector3df Destination, irr::core::dimension2d<int> mapSize, const std::vector<std::string>& Map)
+int Entity::CreatePathToDestination(const std::vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, irr::core::vector3df Destination, irr::core::dimension2d<int> mapSize, const std::vector<std::string>& Map)
 {
 	int FUCK_YOU_COMPILER_STOP_OPTIMISING_THIS_FUNCTION_OUT = 0;
 
@@ -485,7 +485,7 @@ bool Entity::CoverHit(const irr::core::vector3df& target, irr::scene::ISceneColl
 	}
 }
 
-void Entity::AI_AutomateDestination(const vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
+void Entity::AI_AutomateDestination(const std::vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
 								 int targetX, int targetY, irr::core::dimension2d<int> 
 								 mapSize, const std::vector<std::string>& Map)
 {

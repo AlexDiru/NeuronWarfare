@@ -78,6 +78,12 @@ public:
 	//Loads the map from files made up of ground layer, map layer and entity layer
 	void MapFromFile( std::string groundDir, std::string mapDir, std::string entityDir );
 
+	//Parses the loaded map
+	void ParseLayers()
+	{
+		
+	}
+
 	vector<int> XStarts;
 	vector<int> YStarts;
 	int StartX;

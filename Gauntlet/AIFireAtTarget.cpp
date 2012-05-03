@@ -8,7 +8,7 @@ void AIFireAtTarget(Entity *AI, Entity *Target, irr::scene::ISceneManager *smgr,
 	//check adjacency
 
 	//pointer to make code shorter
-	vector<std::string> *m = &Target->PathFinder.Map;
+	std::vector<std::string> *m = &Target->PathFinder.Map;
 
 
 	//have to look at each individually as multiple covers can be surrounding a cell........

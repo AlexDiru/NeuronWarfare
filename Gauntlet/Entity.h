@@ -2,6 +2,9 @@
 #define ENTITY_H
 
 #include <irrlicht.h>
+
+#include <string>
+#include <vector>
 #include <cmath>
 #include "vector_enhancements.h"
 #include "math_enhancements.h"
@@ -10,7 +13,6 @@
 #include "PathFinding.h"
 #include "MyEventReceiver.h"
 #include "EntityStats.h"
-#include "MazeRenderer.h"
 #include "BresenhamLineAlgorithm.h"
 #include "AIState.h"
 #include <boost\thread.hpp>
@@ -55,7 +57,7 @@ public:
 	/* * * * * * * */
 	/* Pathfinding */
 	/* * * * * * * */
-	int CreatePathToDestination(const vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
+	int CreatePathToDestination(const std::vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
 								 irr::core::vector3df Destination, irr::core::dimension2d<int> 
 								 mapSize, const std::vector<std::string>& Map); // Function used to manage path creation - takes care of the mouse pressing and keyflagging
 	void UpdatePathDisplayTimer();
@@ -112,7 +114,7 @@ public:
 	void AI_MakePath(int targetX, int targetY, irr::scene::ISceneManager *smgr, MyEventReceiver& Receiver, irr::core::dimension2d<irr::s32> mapSize, const std::vector<std::string>& Map, const std::vector<Entity*>& ListOfAllEntities);
 	
 
-	void AI_AutomateDestination(const vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
+	void AI_AutomateDestination(const std::vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
 								 int targetX, int targetY, irr::core::dimension2d<int> 
 								 mapSize, const std::vector<std::string>& Map);
 	void AI_SetRandomDestination();
