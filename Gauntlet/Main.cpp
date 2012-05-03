@@ -57,6 +57,8 @@ int main()
 
 	MG.ConvertLoneToCover();
 
+	MG.MapFromFile("Maps/01g.txt", "Maps/01m.txt", "Maps/01e.txt");
+
 	//Setup textures
 	ITexture *FloorTexture = driver->getTexture("Textures/Floor.png");
 	ITexture *WallTexture = driver->getTexture("Textures/Wall.png");

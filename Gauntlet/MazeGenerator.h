@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
+#include <string>
+#include <fstream>
 using namespace std;
 
 //a vertex of the maze
@@ -67,6 +69,15 @@ class MazeGenerator
 
 
 public:
+
+	bool MapLoadedFromFile;
+	std::vector<std::vector<int>> groundLayer;
+	std::vector<std::vector<int>> mapLayer;
+	std::vector<std::vector<int>> entityLayer;
+
+	//Loads the map from files made up of ground layer, map layer and entity layer
+	void MapFromFile( std::string groundDir, std::string mapDir, std::string entityDir );
+
 	vector<int> XStarts;
 	vector<int> YStarts;
 	int StartX;
@@ -76,14 +87,14 @@ public:
 	int EndX;
 	int EndY;
 
-	vector< vector<Tile> > tiles;
-	MazeGenerator() {}
-	MazeGenerator(string method,int,int); //Generates a maze given size
+	std::vector< std::vector<Tile> > tiles;
+	MazeGenerator() { MapLoadedFromFile = false; }
+	MazeGenerator(std::string method,int,int); //Generates a maze given size
 
 	void NewSize(int ix, int ax, int iy, int ay);
-	void Generate(string method);
-	void Generate(string method, int density);
-	void Generate(string method, int density, int numberStarts);
+	void Generate(std::string method);
+	void Generate(std::string method, int density);
+	void Generate(std::string method, int density, int numberStarts);
 	void Minimise();
 	void MinimalSolids(bool includeDiagonals);
 	void CalculateOutsideMap();
@@ -101,7 +112,7 @@ public:
 	void Print();
 	void Print(int x, int y, int Dist);
 	void Print(int x, int y, int DistX, int DistY);
-	vector<string> Convert() const;
+	std::vector<std::string> Convert() const;
 };
 
 #endif
