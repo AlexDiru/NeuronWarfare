@@ -92,7 +92,7 @@ void MazeRenderer::CreateFromVectorString(irr::scene::ISceneManager *smgr, const
 	//create floor
 	Floor = smgr->addCubeSceneNode(1);
 	Floor->setScale(irr::core::vector3df(XSize*TileSize,1,YSize*TileSize));
-	Floor->setPosition(irr::core::vector3df(floor(double(XSize*TileSize/2)),0,floor(double(YSize*TileSize/2))));
+	Floor->setPosition(irr::core::vector3df(floor(double(XSize*TileSize/2))-TileSize/2,0,floor(double(YSize*TileSize/2))-TileSize/2));
 
 	//tri selector for floor
 	TriSelector = smgr->createTriangleSelectorFromBoundingBox(Floor);
