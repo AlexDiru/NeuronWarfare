@@ -53,22 +53,23 @@ void Entity::CreatePath(irr::scene::ISceneManager* smgr, const std::vector<std::
 	ClearUpPath();
 
 	//create new path cubes
-	for (int i = 0; i < PathFinder.m_pathToGoal.size()-1; i++)
-	{
-		//display path
-		irr::scene::ISceneNode* cube = smgr->addCubeSceneNode(8);
-		cube->setPosition( irr::core::vector3df( PathFinder.m_pathToGoal[i]->z*10, -3.25, PathFinder.m_pathToGoal[i]->x*10) );
-		cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-		cube->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
+	if (PathFinder.m_pathToGoal.size() > 1)
+		for (int i = 0; i < PathFinder.m_pathToGoal.size()-1; i++)
+		{
+			//display path
+			irr::scene::ISceneNode* cube = smgr->addCubeSceneNode(8);
+			cube->setPosition( irr::core::vector3df( PathFinder.m_pathToGoal[i]->z*10, -3.25, PathFinder.m_pathToGoal[i]->x*10) );
+			cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+			cube->setMaterialType(irr::video::EMT_TRANSPARENT_ADD_COLOR);
 
-		// Set the (un)reachable texture of the cube
-		if (PathFinder.m_pathToGoal.size()  - i < (this->Stats.MovementSteps+2 - this->Stats.StepsMovedThisTurn)) //walkable
-			cube->setMaterialTexture(0,this->ReachableTile);
-		else //unreachable
-			cube->setMaterialTexture(0,this->UnreachableTile);
+			// Set the (un)reachable texture of the cube
+			if (PathFinder.m_pathToGoal.size()  - i < (this->Stats.MovementSteps+2 - this->Stats.StepsMovedThisTurn)) //walkable
+				cube->setMaterialTexture(0,this->ReachableTile);
+			else //unreachable
+				cube->setMaterialTexture(0,this->UnreachableTile);
 
-		PathCubes.push_back(cube);
-	}
+			PathCubes.push_back(cube);
+		}
 }
 
 void Entity::FollowPath(const std::vector<Entity*>& EntityList)

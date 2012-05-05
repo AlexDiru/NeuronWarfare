@@ -61,4 +61,9 @@ public:
 	void CreateFromVectorString(irr::scene::ISceneManager *smgr, const std::vector<std::string>& Maze);
 
 	void SetTextures(irr::video::ITexture *FloorTexture, irr::video::ITexture *WallTexture, irr::video::ITexture *CoverTexture);
+
+	void CreateFromMazeGeneratorFile( const MazeGenerator &mg, irr::scene::ISceneManager *smgr)
+	{
+		//Ge
+	}
 };

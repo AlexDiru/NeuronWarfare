@@ -1,4 +1,5 @@
 // irrGauntlet
+
 #include "MazeGenerator.h"
 #include "MazeRenderer.h"
 #include "EntityManager.h"
@@ -50,14 +51,22 @@ int main()
 
 	//Generate maze
 	MazeGenerator MG;
+	/*
 	MG.NewSize(495,497,495,497);
 	MG.Generate("DrunkenWalk2",500,numPlayers);//500,numPlayers);
 	MG.Minimise();
 	MG.MinimalSolids(false);
 
-	MG.ConvertLoneToCover();
+	MG.ConvertLoneToCover();*/
+
 
 	MG.MapFromFile("Maps/01g.txt", "Maps/01m.txt", "Maps/01e.txt");
+	vector<int> PlayerStartPos;
+	PlayerStartPos.push_back(10);
+	PlayerStartPos.push_back(11);
+	PlayerStartPos.push_back(12);
+	PlayerStartPos.push_back(13);
+	MG.ParseForPlayerStartPositions(PlayerStartPos);
 
 	//Setup textures
 	ITexture *FloorTexture = driver->getTexture("Textures/Floor.png");

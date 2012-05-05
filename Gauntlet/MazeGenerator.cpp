@@ -1,5 +1,6 @@
  #include "mazegenerator.h"
 
+#ifndef _EXCLUDE_RANDOM_GENERATION
 void MazeGenerator::CutHoleInMiddle(int Width, int Height)
 {
 	for (int y=this->YSize/2-Height/2; y<=this->YSize/2+Height/2; y++)
@@ -489,28 +490,54 @@ void MazeGenerator::Print(int x, int y, int DistX, int DistY)
 		cout << endl;
 	}
 }
+#endif
 
 vector<string> MazeGenerator::Convert() const
 {
-	vector<string> retVal;
 	
-	for (int i=0; i<tiles.size();i++)
-	{
-		string temp = "";
-		for (int j=0; j<tiles[i].size(); j++)
-			if (tiles[i][j].cover)
-				temp += 'C';
-			else if (tiles[i][j].solid)
-				temp += '#';
-			else if (tiles[i][j].marked)
-				temp += '.';
-			else temp += ' ';
-			retVal.push_back(temp);
-	}
+	#ifndef _EXCLUDE_RANDOM_GENERATION
+		vector<string> retVal;
+	
+		for (int i=0; i<tiles.size();i++)
+		{
+			string temp = "";
+			for (int j=0; j<tiles[i].size(); j++)
+				if (tiles[i][j].cover)
+					temp += 'C';
+				else if (tiles[i][j].solid)
+					temp += '#';
+				else if (tiles[i][j].marked)
+					temp += '.';
+				else temp += ' ';
+				retVal.push_back(temp);
+		}
 
-	return retVal;
+		return retVal;
+
+	#else
+	
+		//create the collision map consisting of # C ' ' and .
+	
+	std::vector<std::string> groundCollisionMap;
+	std::vector<std::string> mapCollisionMap;
+
+	std::vector<int> SolTiles;
+	std::vector<int> CovTiles;
+
+	SolTiles.push_back(1);
+	CovTiles.push_back(2);
+
+	groundCollisionMap = getCollisionMap(groundLayer,SolTiles,CovTiles);
+	mapCollisionMap = getCollisionMap(mapLayer,SolTiles,CovTiles);
+
+	appendCollisionMap(groundCollisionMap, mapCollisionMap);
+
+	return groundCollisionMap;
+
+	#endif
 }
 
+#ifndef _EXCLUDE_RANDOM_GENERATION
 void MazeGenerator::DrunkenWalk()
 {
 	StartX = rand()%(XSize-2)+1;
@@ -1099,6 +1126,8 @@ void MazeGenerator::AddBuildings(int probability)
 		}
 }
 
+#endif
+
 void MazeGenerator::MapFromFile( std::string groundDir, std::string mapDir, std::string entityDir )
 {
 	MapLoadedFromFile = true;
@@ -1149,6 +1178,8 @@ void MazeGenerator::MapFromFile( std::string groundDir, std::string mapDir, std:
 				lineIndex++;
 			}
 
+			XSize = row.size();
+
 			switch (i)
 			{
 				case 0: groundLayer.push_back(row); break;
@@ -1157,6 +1188,8 @@ void MazeGenerator::MapFromFile( std::string groundDir, std::string mapDir, std:
 				default: break;
 			}
 		}
+
+		YSize = groundLayer.size();
 
 		mapFiles[i].close();
 	}
