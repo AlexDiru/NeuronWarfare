@@ -148,6 +148,8 @@ int main()
 
 	//Textures (none for now)
 
+	//Need to keep track of all entity positions, so they don't get placed ontop of each other
+	vector<Entity*> EntityList( PlayerManager.GetEntityList() );
 	for (int i = 0; i < numEnemies; i++)
 	{
 		EnemyManager.GetEntity(i)->Construct(smgr,MG.Convert(), driver->getTexture("Textures/Enemy.png"));
@@ -162,13 +164,15 @@ int main()
 		//Stats
 
 		//steup random position
-		EnemyManager.GetEntity(i)->AI_SetRandomDestination();
+		EnemyManager.GetEntity(i)->AI_SetRandomDestination(EntityList);
 		EnemyManager.GetEntity(i)->X = EnemyManager.GetEntity(i)->AI_DestinationX;
 		EnemyManager.GetEntity(i)->Y = EnemyManager.GetEntity(i)->AI_DestinationY; //new path will be created
 		EnemyManager.GetEntity(i)->Position();
 
 		EnemyManager.GetEntity(i)->AI_State = AI::Patrol;
 		EnemyManager.GetEntity(i)->isAI = true;
+
+		EntityList.push_back(EnemyManager.GetEntity(i));
 	}
 
 	bool rkf = false;
@@ -177,7 +181,7 @@ int main()
 	while (device->run())
 	{
 		//Create a list of all entities
-		vector<Entity*> EntityList( PlayerManager.GetEntityList() );
+		EntityList.clear();
 		vector<Entity*> EnemyList( EnemyManager.GetEntityList() );
 		EntityList.insert( EntityList.end(), EnemyList.begin(), EnemyList.end() );
 

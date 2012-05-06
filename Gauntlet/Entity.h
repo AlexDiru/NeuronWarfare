@@ -117,7 +117,7 @@ public:
 	void AI_AutomateDestination(const std::vector<Entity*>& ListOfAllEntities, irr::scene::ISceneManager* smgr, MyEventReceiver& Receiver, 
 								 int targetX, int targetY, irr::core::dimension2d<int> 
 								 mapSize, const std::vector<std::string>& Map);
-	void AI_SetRandomDestination();
+	void AI_SetRandomDestination(std::vector<Entity*> EntityList);
 
 protected:
 	/* * * * * * */

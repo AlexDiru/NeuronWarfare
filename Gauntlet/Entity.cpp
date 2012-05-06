@@ -494,7 +494,7 @@ void Entity::AI_AutomateDestination(const std::vector<Entity*>& ListOfAllEntitie
 	if (!((!(X == AI_DestinationX && Y == AI_DestinationY) && PathFinder.m_pathToGoal.size() > 0)))
 	{
 		RetryPathCreation:
-		AI_SetRandomDestination();
+		AI_SetRandomDestination(ListOfAllEntities);
 		if (this->CreatePathToDestination(ListOfAllEntities, smgr, Receiver, irr::core::vector3df( AI_DestinationY*10, 0, AI_DestinationX*10 ), mapSize, Map) == 0)
 		{
 			goto RetryPathCreation;
@@ -521,7 +521,7 @@ void Entity::AI_AutomateDestination(const std::vector<Entity*>& ListOfAllEntitie
 	AI_FollowPathWholeTurn(ListOfAllEntities);
 }
 
-void Entity::AI_SetRandomDestination()
+void Entity::AI_SetRandomDestination(std::vector<Entity*> EntityList)
 {
 	while (1)
 	{
@@ -532,10 +532,16 @@ void Entity::AI_SetRandomDestination()
 
 		if (PathFinder.Map[Y][X] == '.' && !(this->Y == Y && this->X == X))
 		{
-			AI_DestinationX = X;
-
-			AI_DestinationY = Y;
-			return;
+			//and not entity on the tile
+			for (int i = 0; i < EntityList.size(); i++)
+			{
+				if (X != EntityList[i]->X && Y != EntityList[i]->Y)
+				{
+					AI_DestinationX = X;
+					AI_DestinationY = Y;
+					return;
+				}
+			}
 		}
 	}
 }

@@ -22,20 +22,23 @@ void AIFireAtTarget(Entity *AI, Entity *Target, irr::scene::ISceneManager *smgr,
 		{
 			if (!(y == 0 && x == 0)) //not middle
 			{
-				if ((*m)[TargetVec.Y+y][TargetVec.X+x] == 'C')
+				if (TargetVec.Y+y > -1 && TargetVec.Y+y < (*m).size() && TargetVec.X+x > -1 && TargetVec.X+x < (*m)[0].size())
 				{
-					if (AI->CoverHit(Target->Node->getPosition(),
-																	smgr->getSceneCollisionManager(),
-																	coverTriSel,
-																	irr::core::vector3df(TargetVec.Y*10, 
-																						5,
-																						TargetVec.X*10),x,y))
+					if ((*m)[TargetVec.Y+y][TargetVec.X+x] == 'C')
 					{
-						coverHit = true;
-						//make sure to break
-						x = 3;
-						y = 3;
-						break;
+						if (AI->CoverHit(Target->Node->getPosition(),
+																		smgr->getSceneCollisionManager(),
+																		coverTriSel,
+																		irr::core::vector3df(TargetVec.Y*10, 
+																							5,
+																							TargetVec.X*10),x,y))
+						{
+							coverHit = true;
+							//make sure to break
+							x = 3;
+							y = 3;
+							break;
+						}
 					}
 				}
 			}
