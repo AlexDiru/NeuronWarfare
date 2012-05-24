@@ -43,7 +43,10 @@ public:
 
 	//gets a list of all the entities contained
 	std::vector<Entity*> GetEntityList();
-	
+
+	//clears up all data for a character switch
+	void ForceCharacterSwitch( int oldChar, int newChar );
+
 	int Size;
 	int CurrentPlayer;
 

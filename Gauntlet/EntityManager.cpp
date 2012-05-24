@@ -24,14 +24,21 @@ void EntityManager::ManageCharacterSwitching( const MyEventReceiver& Receiver)
 
 	if (CurrentPlayer != OCP) //character switched so clear the previous characters stuff up
 	{
-		(ePtr + OCP)->ClearUpShootCubes(); //clear up cubes
-
-		//Hide the old player's pathcubes
-		(ePtr + OCP)->HidePath();
-
-		//Show the new player's pathcubes
-		(ePtr + CurrentPlayer)->ShowPath();
+		ForceCharacterSwitch(OCP, CurrentPlayer);
 	}
+}
+
+void EntityManager::ForceCharacterSwitch( int oldChar, int newChar )
+{
+	(ePtr + oldChar)->ClearUpShootCubes(); //clear up cubes
+
+	//Hide the old player's pathcubes
+	(ePtr + oldChar)->HidePath();
+
+	//Show the new player's pathcubes
+	(ePtr + newChar)->ShowPath();
+
+	CurrentPlayer = newChar;
 }
 
 
@@ -54,6 +61,28 @@ void EntityManager::StartTurn()
 	for (int i = 0; i < Size; i++)
 	{
 		(ePtr + i)->StartTurn();
+
+		//if the current player is dead, find a non-dead entity
+		if ((ePtr + CurrentPlayer)->IsDead)
+		{
+			int oc = CurrentPlayer; //old character
+			CurrentPlayer = -1;
+			for (int i = 0; i < Size; i++)
+			{
+				if (!(ePtr + i)->IsDead)
+				{
+					ForceCharacterSwitch( oc, i );
+					break;
+				}
+			}
+
+			//alive player not found, therefore player loses
+			if (CurrentPlayer == -1)
+			{
+				//lose game
+				int lose = 23423;
+			}
+		}
 
 		//show the current player's path
 		(ePtr + CurrentPlayer)->ShowPath();
@@ -138,6 +167,10 @@ void EntityManager::AI_StartTurn(const std::vector<Entity*>& EntityList, EntityM
 				{
 					//shoot player
 					AIFireAtTarget(ePtr + i, PlayerManager.GetEntity( (ePtr+i)->AI_TargetIndex ), smgr, coverTriSel);
+
+					//if target is dead, go back to move state
+					if (PlayerManager.GetEntity( (ePtr+i)->AI_TargetIndex )->IsDead)
+						(ePtr + i)->AI_State = AI::Patrol;
 				}
 				//else move closer
 				else
